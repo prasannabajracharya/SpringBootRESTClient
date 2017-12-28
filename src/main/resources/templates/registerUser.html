@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>Registration</title>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script>
+        function checkPass() {
+            //Store the password field objects into variables ...
+            var pass1 = document.getElementById('pass1');
+            var pass2 = document.getElementById('pass2');
+            //Store the Confimation Message Object ...
+            var message = document.getElementById('confirmMessage');
+            //Set the colors we will be using ...
+            var goodColor = "#66cc66";
+            var badColor = "#ff6666";
+            //Compare the values in the password field
+            //and the confirmation field
+            if (pass1.value == pass2.value) {
+                //The passwords match.
+                //Set the color to the good color and inform
+                //the user that they have entered the correct password
+                pass2.style.backgroundColor = goodColor;
+                message.style.color = goodColor;
+                message.innerHTML = "Passwords Match"
+            } else {
+                //The passwords do not match.
+                //Set the color to the bad color and
+                //notify the user.
+                pass2.style.backgroundColor = badColor;
+                message.style.color = badColor;
+                message.innerHTML = "Passwords Do Not Match!"
+            }
+        }
+    </script>
+</head>
+<body>
+
+<div class="container-fluid">
+    <div class="container">
+        <div class="row centered-form">
+            <div class="col-xs-12 col-sm-8 col-md-6  col-sm-offset-2 col-md-offset-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Sign up
+                            <small>It's free!</small>
+                        </h3>
+                    </div>
+                    <div class="panel-body">
+                        <form method="post" action="/user/create" th:action="@{/user/create}" id="signUp" role="form">
+                            <!--<div class="form-title " > Registration Form</div>-->
+                            <div class="form-group">
+                                <label for="txtFname"><span class="req">* </span> First name: </label>
+                                <input class="form-control" type="text" name="firstName" id="txtFname" required="true"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="txtLname"><span class="req">* </span> Last name: </label>
+                                <input class="form-control" type="text" name="lastName" id="txtLname" required="true"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="phone"><span class="req">* </span> Contact Number: </label>
+                                <input required="true" type="text" name="contactNumber" id="contactNumber"
+                                       class="form-control phone"/>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="address"> Address: </label>
+                                <input class="form-control" type="text" placeholder="Street, City, State"
+                                name="address" id="address"/>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="email"><span class="req">* </span> Email Address: 
+                                	<small>(This will be your login user name)</small>
+                                </label>
+                                <input class="form-control" required="true" type="text" name="username" id="username"
+                                placeholder="example@email.com"
+                                       onchange="email_validate(this.value);"/>
+                                <div class="status" id="status"></div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="pass1">* Password: </label>
+                                <input required="true" name="password" type="password" class="form-control inputpass"
+                                       minlength="4"
+                                       maxlength="16" id="pass1"/>
+                                <label for="pass2">Password Confirm: </label>
+                                <input required="true" type="password" class="form-control" minlength="4" maxlength="16"
+                                       placeholder="repeat password" id="pass2"
+                                       onkeyup="checkPass(); return false;"/>
+                                <span id="confirmMessage" class="confirmMessage"></span>
+                            </div>
+
+
+                            <div class="form-group">
+                                <input class="btn btn-success btn-primary" type="submit" name="submit_reg"
+                                       value="Register"/>
+                            </div>
+                            <h6>You will receive an email to complete the registration and validation process. </h6>
+                            <h6>Be sure to check your spam folders. </h6>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

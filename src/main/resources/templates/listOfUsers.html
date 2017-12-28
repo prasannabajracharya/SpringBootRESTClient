@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <title>Users List</title>
+
+</head>
+<body>
+
+<div class="col-md-10" id="content-wrapper">
+				<div class="row">
+					<div class="col-lg-12">
+					
+						<div class="clearfix">
+							<h1 class="pull-left">Users</h1>
+							
+							<div class="pull-right top-page-ui">
+								<a href="/user/create" th:href="@{'/user/create'}" class="btn btn-primary pull-right">
+									<i class="glyphicon glyphicon-plus"></i> Add user
+								</a>
+							</div>
+						</div>
+						
+						<div class="row">
+							<div class="col-lg-12">
+								<div class="main-box clearfix">
+									<div class="table-responsive">
+										<table class="table user-list">
+											<thead>
+												<tr>
+													<th><span>User</span></th>
+													<th><span>Created</span></th>
+													<th class="text-center"><span>Enabled</span></th>
+													<th><span>Email</span></th>
+													<th>&nbsp;</th>
+												</tr>
+											</thead>
+											<tbody th:each="user : ${userList}">
+											
+												<tr>
+													<td>
+														<img src="http://lorempixel.com/40/40/people/" alt="profile_pic" class="glyphicon glyphicon-use"/>
+														<a th:href="${user.id}" th:text="${user.firstName +'  '+ user.lastName}"></a>
+													</td>
+													
+													<td th:text="${user.registeredOn}">	
+													</td>
+													
+													<td class="text-center">
+														<span class="label label-default" th:text="${user.enabled}"></span>
+													</td>
+													<td>
+														<a href="mailto:${user.username}" th:text="${user.username}"></a>
+													</td>
+													<td style="width: 20%;">
+														<a th:href="${user.id}" class="glyphicon glyphicon-zoom-in">Detail </a>
+														
+														<a th:href="@{'/user/update/' + ${user.id}}" class="glyphicon glyphicon-edit">Edit </a>
+														
+														<form method="post" action="/user/delete/${user.id}" th:action="@{'/user/delete/' + ${user.id}}">
+															<input type="hidden" name="userId" th:value="${user.id}"/>
+															<input type="hidden" name="_method" value="Delete" />
+															<button type="submit" name="deleteUser" class="glyphicon glyphicon-trash">Delete</button>
+                                                    	</form>
+													</td>
+												</tr>
+												
+											</tbody>
+										</table>
+									</div>
+									<ul class="pagination pull-right">
+										<li><a href="#"><i class="glyphicon glyphicon-chevron-left"></i></a></li>
+										<li><a href="#">1</a></li>
+										<li><a href="#">2</a></li>
+										<li><a href="#">3</a></li>
+										<li><a href="#">4</a></li>
+										<li><a href="#">5</a></li>
+										<li><a href="#"><i class="glyphicon glyphicon-chevron-right"></i></a></li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					
+					
+					</div>
+				</div>
+			</div>
+</body>
+</html>
